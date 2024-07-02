@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    build: .
+    container_name: tasklist
+    platform: linux/x86_64
+    command: ""
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: tasklist
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - 3307:3306
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+      - my-vol:/var/lib/mysql
+volumes:
+  my-vol:
