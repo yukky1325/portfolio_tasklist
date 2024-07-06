@@ -16,8 +16,9 @@ CREATE TABLE users (
   id INT AUTO_INCREMENT,
   username VARCHAR(50) NOT NULL,
   password VARCHAR(500) NOT NULL,
+  email VARCHAR(100) NOT NULL,
   PRIMARY KEY(id)
 );
 
-INSERT INTO users(username,password) VALUES('tom','$2a$10$AeZM5iFFA9kcsJhSxpw4c.4MYjVGoeGOzczXLdjLg/PKJY4/f5cnq');
+INSERT INTO users(username,password,email) VALUES('tom','$2a$10$AeZM5iFFA9kcsJhSxpw4c.4MYjVGoeGOzczXLdjLg/PKJY4/f5cnq','111@yahoo.co.jp');
 

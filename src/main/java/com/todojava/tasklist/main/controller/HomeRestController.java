@@ -2,6 +2,9 @@ package com.todojava.tasklist.main.controller;
 
 import com.todojava.tasklist.main.entity.TaskItem;
 import com.todojava.tasklist.main.service.HomeRestService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+;
 
 @Controller
 public class HomeRestController {
@@ -23,11 +28,15 @@ public class HomeRestController {
 
     @GetMapping("/home")
     String listHome(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+        model.addAttribute("username", username);
         List<TaskItem> taskItems = homeRestService.getAllTasks();
         model.addAttribute("taskList", taskItems);
         return "home";
     }
-    
+
     @PostMapping("/add")
     String addItem(@RequestParam("task") String task, @RequestParam("deadline") String deadline) {
         String id = UUID.randomUUID().toString().substring(0, 8);

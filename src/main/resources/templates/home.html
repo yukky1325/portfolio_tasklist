@@ -8,7 +8,7 @@
 <body>
 <h1>家族間タスク管理アプリケーション</h1>
 <div class="header">
-    <p th:inline="text">ユーザー名</p>
+    <p th:text="'ユーザー名:' + ${username}"></p>
 </div>
 <div class="task_form">
     <h2>タスク登録</h2>
