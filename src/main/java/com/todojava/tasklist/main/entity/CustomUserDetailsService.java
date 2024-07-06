@@ -1,4 +1,4 @@
-package com.todojava.tasklist.main.auth;
+package com.todojava.tasklist.main.entity;
 
 import com.todojava.tasklist.main.dao.UserMapper;
 import org.springframework.security.core.userdetails.UserDetails;

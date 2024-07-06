@@ -1,4 +1,4 @@
-package com.todojava.tasklist.main.auth;
+package com.todojava.tasklist.main.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

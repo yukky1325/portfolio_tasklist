@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .defaultSuccessUrl("/home", true)
         ).authorizeHttpRequests(authz -> authz
-                .requestMatchers("/login/**").permitAll()
+                .requestMatchers("/login/**", "/register/**", "/result/**", "/adduser/**").permitAll()
                 .anyRequest().authenticated()
         );
 
@@ -37,7 +37,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    
+
 }
 
 
