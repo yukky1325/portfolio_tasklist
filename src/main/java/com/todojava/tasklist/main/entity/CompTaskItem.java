@@ -1,6 +1,8 @@
 package com.todojava.tasklist.main.entity;
 
-public class TaskItem {
+import java.time.LocalDateTime;
+
+public class CompTaskItem {
     String id;
 
     String client;
@@ -8,16 +10,15 @@ public class TaskItem {
     String task;
 
     String deadline;
+    LocalDateTime completedDate;
 
-    boolean done;
-
-    public TaskItem(String id, String client, String contractor, String task, String deadline, boolean done) {
+    public CompTaskItem(String id, String client, String contractor, String task, String deadline, LocalDateTime completedDate) {
         this.id = id;
         this.client = client;
         this.contractor = contractor;
         this.task = task;
         this.deadline = deadline;
-        this.done = done;
+        this.completedDate = completedDate;
     }
 
     public String getId() {
@@ -59,12 +60,13 @@ public class TaskItem {
     public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
+    
 
-    public boolean isDone() {
-        return done;
+    public LocalDateTime getCompletedDate() {
+        return completedDate;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setCompletedDate(LocalDateTime completedDate) {
+        this.completedDate = completedDate;
     }
 }
