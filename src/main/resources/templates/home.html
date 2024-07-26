@@ -8,7 +8,9 @@
 <body>
 <h1>家族間タスク管理アプリケーション</h1>
 <div class="header">
-    <p><span style="font-weight: bold;">ユーザー名:</span> <span th:text="${username}"></span>
+    <span style="font-weight: bold;">ユーザー名:</span>
+    <a href="users.html" th:href="@{/home/users}"><span th:text="${username}"></span></a>
+
 </div>
 <div class="task_form">
     <h2>タスク登録</h2>
@@ -155,8 +157,7 @@
     </div>
 </div>
 <div class="nav_f">
-    <a href="./users.html" th:href="@{/users}">ユーザー一覧</a>
-    <a href="./logout.html" th:href="@{/logout}">ログアウト</a>
+    <a href="logout.html" th:href="@{/logout}">ログアウト</a>
 </div>
 </body>
 </html>

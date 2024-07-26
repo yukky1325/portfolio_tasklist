@@ -2,6 +2,7 @@ package com.todojava.tasklist.main.service;
 
 import com.todojava.tasklist.main.dao.HomeRestMapper;
 import com.todojava.tasklist.main.entity.CompTaskItem;
+import com.todojava.tasklist.main.entity.RecordTaskItem;
 import com.todojava.tasklist.main.entity.TaskItem;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,7 @@ public class HomeRestService {
     }
 
     public TaskItem getTaskById(String id) {
+
         return homeRestMapper.findById(id).orElse(null);
     }
 
@@ -54,6 +56,22 @@ public class HomeRestService {
         homeRestMapper.delete(completedTask.getId());
     }
 
+    public CompTaskItem getCompTaskById(String id) {
+
+        return homeRestMapper.findCompById(id).orElse(null);
+    }
+
+    public void insertRecordTask(RecordTaskItem recordTaskItem) {
+        homeRestMapper.insertRecordTask(recordTaskItem);
+        homeRestMapper.deleteCompTask(recordTaskItem.getId());
+    }
+
+    public void deleteCompTask(String id) {
+
+        homeRestMapper.deleteCompTask(id);
+    }
+
+   
 }
 
 

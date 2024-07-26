@@ -1,6 +1,7 @@
 package com.todojava.tasklist.main.dao;
 
 import com.todojava.tasklist.main.entity.CompTaskItem;
+import com.todojava.tasklist.main.entity.RecordTaskItem;
 import com.todojava.tasklist.main.entity.TaskItem;
 import org.apache.ibatis.annotations.*;
 
@@ -41,4 +42,15 @@ public interface HomeRestMapper {
 
     @Insert("INSERT INTO completed_tasklists (id,client,contractor,task,deadline,completed_date) VALUES (#{id}, #{client},#{contractor},#{task}, #{deadline}, #{completedDate})")
     void insertCompletedTask(CompTaskItem CompletedTask);
+
+    @Select("SELECT * FROM completed_tasklists WHERE id = #{id}")
+    Optional<CompTaskItem> findCompById(String id);
+
+    @Delete("DELETE FROM completed_tasklists WHERE id = #{id}")
+    void deleteCompTask(String id);
+
+    @Insert("INSERT INTO record_tasklists (id,client,contractor,task,deadline,completed_date) VALUES (#{id}, #{client},#{contractor},#{task}, #{deadline}, #{completedDate})")
+    void insertRecordTask(RecordTaskItem recordTaskItem);
+
+    
 }

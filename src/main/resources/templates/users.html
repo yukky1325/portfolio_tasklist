@@ -2,21 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org"
 <head>
     <meta charset="UTF-8">
-    <title>ユーザー一覧 | 家族間タスク管理アプリケーション</title>
+    <title>ユーザー詳細情報一覧 | 家族間タスク管理アプリケーション</title>
 </head>
 <body>
-<h1 class="mt-3">ユーザー一覧</h1>
-<a href="./home.html" th:href="@{/home}">トップページ</a>
-<table class="table">
-    <tr>
-        <th>username</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${userList}">
-        <th th:text="${user.username}">(username)</th>
-    </tr>
-    </tbody>
+<h1 class="mt-3">ユーザー詳細情報一覧</h1>
+<div class="username" th:each="user : ${userList}">
+    <h2>ユーザー名</h2>
+    <p th:text="${user.username}"></p>
+    <h2>emailアドレス</h2>
+    <p th:text="${user.email}"></p>
+</div>
+
+<h2>実績タスク一覧</h2>
+<table class="record_task_table">
+    <table border="1" style="border-collapse:collapse;">
+        <thead>
+        <tr>
+            <th class="hidden">ID</th>
+            <th width="50px">依頼主</th>
+            <th width="50px">請負人</th>
+            <th>タスク</th>
+            <th width="100px">期限</th>
+            <th width="150px">完了日時</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="record:${recordTask}"  th:if="${record.client} == ${username} or ${record.contractor} == ${username}">
+            <td class="hidden" th:text="${record.id}"></td>
+            <td th:text="${record.client}"></td>
+            <td th:text="${record.contractor}"></td>
+            <td th:text="${record.task}"></td>
+            <td width="80px" th:text="${record.deadline}"></td>
+            <td th:text="${#temporals.format(record.completedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tbody>
 </table>
+<a href="home.html" th:href="@{/home}">トップページ</a>
 </body>
 </html>

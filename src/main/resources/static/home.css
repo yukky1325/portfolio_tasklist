@@ -12,6 +12,12 @@ border:1px solid;
 display:none;
 }
 
+/*.header*/
+.header{
+text-align:right;
+}
+
+
 /*タスク入力フォーム*/
 .task_form{
 padding:0px 10px 10px 10px;
