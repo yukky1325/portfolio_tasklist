@@ -1,0 +1,39 @@
+openapi: "3.1.0"
+info:
+  title: Task Management API
+  description: |-
+    タスク管理のAPI仕様書です。
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+tags:
+  - name: login
+    description: ユーザーログインに関する操作
+  - name: register
+    description: ユーザー情報の登録に関する操作
+  - name: task
+    description: タスク管理に関する操作
+  - name: user
+    description: ユーザー情報に関する操作
+paths:
+  /login:
+    get:
+      tags:
+        - login
+      summary: ログイン画面の取得
+      description: login.htmlの情報を取得しログイン画面に反映させる
+      responses:
+        "200":
+          description: "成功"
+  /logout:
+    get:
+      tags:
+        - login
+      summary: ログアウト画面の取得
+      description: logout.htmlの情報を取得し、ログアウト画面を反映させる。
+      responses:
+        "200":
+          description: "成功"
+                
+     

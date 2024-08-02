@@ -1,9 +1,9 @@
 package com.todojava.tasklist.main.entity;
 
-public class HomeRestResponse {
+public class TaskResponse {
     private String message;
 
-    public HomeRestResponse(String message) {
+    public TaskResponse(String message) {
         this.message = message;
     }
 

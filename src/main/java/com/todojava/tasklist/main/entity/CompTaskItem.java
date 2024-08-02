@@ -3,7 +3,7 @@ package com.todojava.tasklist.main.entity;
 import java.time.LocalDateTime;
 
 public class CompTaskItem {
-    String id;
+    String taskId;
 
     String client;
     String contractor;
@@ -12,8 +12,8 @@ public class CompTaskItem {
     String deadline;
     LocalDateTime completedDate;
 
-    public CompTaskItem(String id, String client, String contractor, String task, String deadline, LocalDateTime completedDate) {
-        this.id = id;
+    public CompTaskItem(String taskId, String client, String contractor, String task, String deadline, LocalDateTime completedDate) {
+        this.taskId = taskId;
         this.client = client;
         this.contractor = contractor;
         this.task = task;
@@ -21,12 +21,12 @@ public class CompTaskItem {
         this.completedDate = completedDate;
     }
 
-    public String getId() {
-        return id;
+    public String getTaskId() {
+        return taskId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 
     public String getClient() {
@@ -60,7 +60,6 @@ public class CompTaskItem {
     public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
-    
 
     public LocalDateTime getCompletedDate() {
         return completedDate;

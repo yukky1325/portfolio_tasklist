@@ -1,7 +1,7 @@
 package com.todojava.tasklist.main.entity;
 
 public class TaskItem {
-    String id;
+    String taskId;
 
     String client;
     String contractor;
@@ -11,8 +11,8 @@ public class TaskItem {
 
     boolean done;
 
-    public TaskItem(String id, String client, String contractor, String task, String deadline, boolean done) {
-        this.id = id;
+    public TaskItem(String taskId, String client, String contractor, String task, String deadline, boolean done) {
+        this.taskId = taskId;
         this.client = client;
         this.contractor = contractor;
         this.task = task;
@@ -20,12 +20,12 @@ public class TaskItem {
         this.done = done;
     }
 
-    public String getId() {
-        return id;
+    public String getTaskId() {
+        return taskId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 
     public String getClient() {
