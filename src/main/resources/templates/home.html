@@ -8,11 +8,19 @@
 <body>
 <h1>家族間タスク管理アプリケーション</h1>
 <div class="header">
-    <p th:text="'ユーザー名:' + ${username}"></p>
+    <p><span style="font-weight: bold;">ユーザー名:</span> <span th:text="${username}"></span>
 </div>
 <div class="task_form">
     <h2>タスク登録</h2>
     <form th:action="@{/add}" method="post">
+        <label>依頼主</label>
+        <select name="client">
+            <option th:each="user : ${username}" th:value="${username}" th:text="${username}"></option>
+        </select>
+        <label>請負人</label>
+        <select name="contractor">
+            <option th:each="user : ${usernames}" th:value="${user}" th:text="${user}"></option>
+        </select>
         <label>タスク</label>
         <input name="task" type="text"/>
         <label>期限</label>
@@ -27,28 +35,34 @@
         <thead>
         <tr>
             <th class="hidden">ID</th>
+            <th width="50px">依頼主</th>
+            <th width="50px">請負人</th>
             <th>タスク</th>
-            <th width="150px">期限</th>
+            <th width="100px">期限</th>
             <th width="100px">状態</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="task:${taskList}">
             <td class="hidden" th:text="${task.id}"></td>
+            <td th:text="${task.client}"></td>
+            <td th:text="${task.contractor}"></td>
             <td th:text="${task.task}"></td>
             <td width="100px" th:text="${task.deadline}"></td>
             <td width="50px" th:text="${task.done} ? '完了' : '未完了'"></td>
             <td width="50px">
                 <button type="button" id="update_button" onclick="
-                 let row = this.parentElement.parentElement;
-                 document.getElementById('update_id').value = row.cells[0].firstChild.data;
-                 document.getElementById('update_task').value = row.cells[1].firstChild.data;
-                 document.getElementById('update_deadline').value = row.cells[2].firstChild.data;
-                 document.getElementById('update_status').selectedIndex = (row.cells[3].firstChild.data === '完了') ? 1 : 0;
-                 var dialog = document.getElementById('updateDialog');
-                 dialog.style.left = ((window.innerWidth - 500) / 2) + 'px';
-                 dialog.style.display = 'block';
-                 ">更新
+                let row = this.parentElement.parentElement;
+                document.getElementById('update_id').value = row.cells[0].firstChild.data;
+                document.getElementById('update_client').value = row.cells[1].firstChild.data.trim();
+                document.getElementById('update_contractor_select').value = row.cells[2].firstChild.data.trim();
+                document.getElementById('update_task').value = row.cells[3].firstChild.data;
+                document.getElementById('update_deadline').value = row.cells[4].firstChild.data;
+                document.getElementById('update_status').selectedIndex = (row.cells[5].firstChild.data === '完了') ? 1 : 0;
+                var dialog = document.getElementById('updateDialog');
+                dialog.style.left = ((window.innerWidth - 500) / 2) + 'px';
+                dialog.style.display = 'block';
+                ">更新
                 </button>
             </td>
             <td width="50px">
@@ -56,6 +70,51 @@
                     <input type="hidden" name="_method" value="delete"/>
                     <button type="submit" id="delete_button">削除</button>
                     <input type="hidden" name="id" th:value="${task.id}"/>
+                </form>
+            </td>
+            <td width="50px">
+                <div th:if="${task.done}">
+                    <form th:action="@{/complete}" method="post" style="display:inline;">
+                        <input type="hidden" name="id" th:value="${task.id}"/>
+                        <button type="submit">完了</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="completed-tasks">
+    <h2>作業完了タスク一覧</h2>
+    <table border="1" style="border-collapse:collapse;">
+        <thead>
+        <tr>
+            <th class="hidden">ID</th>
+            <th width="50px">依頼主</th>
+            <th width="50px">請負人</th>
+            <th>タスク</th>
+            <th width="100px">期限</th>
+            <th width="150px">完了日時</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task:${completedTask}">
+            <td class="hidden" th:text="${task.id}"></td>
+            <td th:text="${task.client}"></td>
+            <td th:text="${task.contractor}"></td>
+            <td th:text="${task.task}"></td>
+            <td width="80px" th:text="${task.deadline}"></td>
+            <td th:text="${#temporals.format(task.completedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td width="50px">
+                <form th:action="@{/completedTask}" method="post">
+                    <input type="hidden" name="id" th:value="${task.id}"/>
+                    <button type="submit">完了</button>
+                </form>
+            </td>
+            <td width="70px">
+                <form th:action="@{/notCompletedTask}" method="post">
+                    <input type="hidden" name="id" th:value="${task.id}"/>
+                    <button type="submit">未完了</button>
                 </form>
             </td>
         </tr>
@@ -68,6 +127,14 @@
         <form th:action="@{/update}" method="post">
             <input type="hidden" name="_method" value="patch"/>
             <input id="update_id" name="id" type="hidden"/>
+            <label>依頼主</label>
+            <select id="update_client" name="client">
+                <option th:each="user : ${username}" th:value="${username}" th:text="${username}"></option>
+            </select>
+            <label>請負人</label>
+            <select id="update_contractor_select" name="contractor">
+                <option th:each="user : ${usernames}" th:value="${user}" th:text="${user}"></option>
+            </select>
             <label>タスク</label>
             <input id="update_task" name="task" type="text"/>
             <label>期限</label>

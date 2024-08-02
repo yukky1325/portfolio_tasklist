@@ -33,6 +33,12 @@ border:1px solid;
 border-collapse: collapse;
 }
 
+/*作業完了一覧*/
+.completed-tasks table{
+width: 100%;
+border:1px solid;
+border-collapse: collapse;
+}
 /*タスク更新ダイアログ*/
 #updateDialog{
 display:none;
