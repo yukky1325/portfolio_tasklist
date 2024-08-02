@@ -1,6 +1,7 @@
 package com.todojava.tasklist.main.controller;
 
 import com.todojava.tasklist.main.entity.CompTaskItem;
+import com.todojava.tasklist.main.entity.RecordTaskItem;
 import com.todojava.tasklist.main.entity.TaskItem;
 import com.todojava.tasklist.main.service.HomeRestService;
 import org.springframework.security.core.Authentication;
@@ -75,6 +76,27 @@ public class HomeRestController {
             LocalDateTime completedDate = LocalDateTime.now();
             CompTaskItem completedTask = new CompTaskItem(task.getId(), task.getClient(), task.getContractor(), task.getTask(), task.getDeadline(), completedDate);
             homeRestService.insertCompletedTask(completedTask);
+        }
+        return "redirect:/home";
+    }
+
+    @PostMapping("/completedTask")
+    String completedTask(@RequestParam("id") String id) {
+        CompTaskItem task = homeRestService.getCompTaskById(id);
+        if (task != null) {
+            LocalDateTime completedDate = LocalDateTime.now();
+            RecordTaskItem recordTask = new RecordTaskItem(task.getId(), task.getClient(), task.getContractor(), task.getTask(), task.getDeadline(), completedDate);
+            homeRestService.insertRecordTask(recordTask);
+        }
+        return "redirect:/home";
+    }
+
+    @PostMapping("/notCompletedTask")
+    String notCompletedTask(@RequestParam("id") String id) {
+        CompTaskItem task = homeRestService.getCompTaskById(id);
+        if (task != null) {
+            homeRestService.insertTask(task.getId(), task.getClient(), task.getContractor(), task.getTask(), task.getDeadline(), false);
+            homeRestService.deleteCompTask(task.getId());
         }
         return "redirect:/home";
     }

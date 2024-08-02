@@ -26,6 +26,20 @@ CREATE TABLE completed_tasklists (
 
 INSERT INTO completed_tasklists(id,client,contractor,task,deadline,completed_date) VALUES('0002','tom','tom','Javaの本を読む','2025-05-24','2024-07-14 14:00:00');
 
+DROP TABLE IF EXISTS record_tasklists;
+
+CREATE TABLE record_tasklists (
+  id VARCHAR(8) NOT NULL,
+  client VARCHAR(50),
+  contractor VARCHAR(50),
+  task VARCHAR(256) NOT NULL,
+  deadline VARCHAR(10) NOT NULL,
+  completed_date TIMESTAMP,
+  PRIMARY KEY(id)
+);
+
+INSERT INTO record_tasklists(id,client,contractor,task,deadline,completed_date) VALUES('0003','tom','tom','Javaの本を読む','2025-05-24','2024-07-14 14:00:00');
+
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (

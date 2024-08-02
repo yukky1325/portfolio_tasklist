@@ -1,6 +1,7 @@
-package com.todojava.tasklist.main.entity;
+package com.todojava.tasklist.main.service;
 
 import com.todojava.tasklist.main.dao.UserMapper;
+import com.todojava.tasklist.main.entity.CustomUserDetails;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

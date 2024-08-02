@@ -1,0 +1,245 @@
+openapi: 3.0.1
+info:
+  title: Task Management API
+  description: API documentation for Task Management Application
+  version: 1.0.0
+  contact:
+    name:
+    email:
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /home:
+    get:
+      summary: List tasks
+      description: Get all tasks
+      responses:
+        '200':
+          description: A JSON array of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskItem'
+  /add:
+    post:
+      summary: Add a new task
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                client:
+                  type: string
+                contractor:
+                  type: string
+                task:
+                  type: string
+                deadline:
+                  type: string
+      responses:
+        '302':
+          description: Task added and redirect to /home
+  /delete:
+    delete:
+      summary: Delete a task
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+      responses:
+        '302':
+          description: Task deleted and redirect to /home
+  /update:
+    patch:
+      summary: Update a task
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                client:
+                  type: string
+                contractor:
+                  type: string
+                task:
+                  type: string
+                deadline:
+                  type: string
+                done:
+                  type: boolean
+      responses:
+        '302':
+          description: Task updated and redirect to /home
+  /complete:
+    post:
+      summary: Complete a task
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+      responses:
+        '302':
+          description: Task completed and redirect to /home
+  /completedTask:
+    post:
+      summary: Move a task to completed tasks
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+      responses:
+        '302':
+          description: Task moved to completed tasks and redirect to /home
+  /notCompletedTask:
+    post:
+      summary: Move a task back to tasks list
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+      responses:
+        '302':
+          description: Task moved back to tasks list and redirect to /home
+components:
+  schemas:
+    TaskItem:
+      type: object
+      properties:
+        id:
+          type: string
+        client:
+          type: string
+        contractor:
+          type: string
+        task:
+          type: string
+        deadline:
+          type: string
+        done:
+          type: boolean
+    CompTaskItem:
+      type: object
+      properties:
+        id:
+          type: string
+        client:
+          type: string
+        contractor:
+          type: string
+        task:
+          type: string
+        deadline:
+          type: string
+        completedDate:
+          type: string
+          format: date-time
+    RecordTaskItem:
+      type: object
+      properties:
+        id:
+          type: string
+        client:
+          type: string
+        contractor:
+          type: string
+        task:
+          type: string
+        deadline:
+          type: string
+        completedDate:
+          type: string
+          format: date-time
+
+paths:
+  /login:
+    get:
+      summary: Show login form
+      responses:
+        '200':
+          description: Show login form
+  /logout:
+    get:
+      summary: Show logout page
+      responses:
+        '200':
+          description: Show logout page
+
+paths:
+  /register:
+    get:
+      summary: Show registration form
+      responses:
+        '200':
+          description: Show registration form
+  /adduser:
+    post:
+      summary: Register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUser'
+      responses:
+        '200':
+          description: User registration result
+components:
+  schemas:
+    RegisterUser:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+  UserController
+  yaml
+  コードをコピーする
+paths:
+  /home/users:
+    get:
+      summary: Show user list and record tasks
+      responses:
+        '200':
+          description: User list and record tasks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userList:
+                    type: array
+                    items:
+                      type: string
+                  recordTask:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RecordTaskItem'
