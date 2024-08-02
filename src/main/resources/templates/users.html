@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         <tr th:each="record:${recordTask}"  th:if="${record.client} == ${username} or ${record.contractor} == ${username}">
-            <td class="hidden" th:text="${record.id}"></td>
+            <td class="hidden" th:text="${record.taskId}"></td>
             <td th:text="${record.client}"></td>
             <td th:text="${record.contractor}"></td>
             <td th:text="${record.task}"></td>
@@ -36,6 +36,6 @@
             <td th:text="${#temporals.format(record.completedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
             </tbody>
 </table>
-<a href="home.html" th:href="@{/home}">トップページ</a>
+<a href="task.html" th:href="@{/task}">トップページ</a>
 </body>
 </html>

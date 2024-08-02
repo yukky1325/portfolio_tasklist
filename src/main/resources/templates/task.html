@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>家族間タスク管理アプリケーション</title>
-    <link th:href="@{/home.css}" rel="stylesheet">
+    <link th:href="@{/task.css}" rel="stylesheet">
 </head>
 <body>
 <h1>家族間タスク管理アプリケーション</h1>
 <div class="header">
     <span style="font-weight: bold;">ユーザー名:</span>
-    <a href="users.html" th:href="@{/home/users}"><span th:text="${username}"></span></a>
-
+    <a href="users.html" th:href="@{/task/users}"><span th:text="${username}"></span></a>
 </div>
 <div class="task_form">
     <h2>タスク登録</h2>
@@ -46,7 +45,7 @@
         </thead>
         <tbody>
         <tr th:each="task:${taskList}">
-            <td class="hidden" th:text="${task.id}"></td>
+            <td class="hidden" th:text="${task.taskId}"></td>
             <td th:text="${task.client}"></td>
             <td th:text="${task.contractor}"></td>
             <td th:text="${task.task}"></td>
@@ -55,7 +54,7 @@
             <td width="50px">
                 <button type="button" id="update_button" onclick="
                 let row = this.parentElement.parentElement;
-                document.getElementById('update_id').value = row.cells[0].firstChild.data;
+                document.getElementById('update_taskId').value = row.cells[0].firstChild.data;
                 document.getElementById('update_client').value = row.cells[1].firstChild.data.trim();
                 document.getElementById('update_contractor_select').value = row.cells[2].firstChild.data.trim();
                 document.getElementById('update_task').value = row.cells[3].firstChild.data;
@@ -71,13 +70,13 @@
                 <form th:action="@{/delete}" method="post">
                     <input type="hidden" name="_method" value="delete"/>
                     <button type="submit" id="delete_button">削除</button>
-                    <input type="hidden" name="id" th:value="${task.id}"/>
+                    <input type="hidden" name="taskId" th:value="${task.taskId}"/>
                 </form>
             </td>
             <td width="50px">
                 <div th:if="${task.done}">
                     <form th:action="@{/complete}" method="post" style="display:inline;">
-                        <input type="hidden" name="id" th:value="${task.id}"/>
+                        <input type="hidden" name="taskId" th:value="${task.taskId}"/>
                         <button type="submit">完了</button>
                     </form>
                 </div>
@@ -101,7 +100,7 @@
         </thead>
         <tbody>
         <tr th:each="task:${completedTask}">
-            <td class="hidden" th:text="${task.id}"></td>
+            <td class="hidden" th:text="${task.taskId}"></td>
             <td th:text="${task.client}"></td>
             <td th:text="${task.contractor}"></td>
             <td th:text="${task.task}"></td>
@@ -109,13 +108,13 @@
             <td th:text="${#temporals.format(task.completedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
             <td width="50px">
                 <form th:action="@{/completedTask}" method="post">
-                    <input type="hidden" name="id" th:value="${task.id}"/>
+                    <input type="hidden" name="taskId" th:value="${task.taskId}"/>
                     <button type="submit">完了</button>
                 </form>
             </td>
             <td width="70px">
                 <form th:action="@{/notCompletedTask}" method="post">
-                    <input type="hidden" name="id" th:value="${task.id}"/>
+                    <input type="hidden" name="taskId" th:value="${task.taskId}"/>
                     <button type="submit">未完了</button>
                 </form>
             </td>
@@ -128,7 +127,7 @@
         <h2>タスクの更新</h2>
         <form th:action="@{/update}" method="post">
             <input type="hidden" name="_method" value="patch"/>
-            <input id="update_id" name="id" type="hidden"/>
+            <input id="update_taskId" name="taskId" type="hidden"/>
             <label>依頼主</label>
             <select id="update_client" name="client">
                 <option th:each="user : ${username}" th:value="${username}" th:text="${username}"></option>
@@ -161,4 +160,3 @@
 </div>
 </body>
 </html>
-
