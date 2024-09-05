@@ -20,6 +20,7 @@ import java.util.UUID;
 public class TaskController {
     private final TaskService taskService;
 
+
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
@@ -42,7 +43,7 @@ public class TaskController {
         return "task";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/task")
     String addItem(@RequestParam("client") String client, @RequestParam("contractor") String contractor, @RequestParam("task") String task, @RequestParam("deadline") String deadline) {
         String taskId = UUID.randomUUID().toString().substring(0, 8);
         TaskItem item = new TaskItem(taskId, client, contractor, task, deadline, false);
@@ -50,26 +51,25 @@ public class TaskController {
         return "redirect:/task";
     }
 
-    @DeleteMapping("/delete")
-    String deleteTask(@RequestParam("taskId") String taskId) {
+    @DeleteMapping("/task/{taskId}")
+    String deleteTask(@PathVariable("taskId") String taskId) {
         taskService.deleteTask(taskId);
         return "redirect:/task";
     }
 
-    @PatchMapping("/update")
+    @PatchMapping("/task/update")
     String updateItem(@RequestParam("taskId") String taskId,
                       @RequestParam("client") String client,
                       @RequestParam("contractor") String contractor,
                       @RequestParam("task") String task,
                       @RequestParam("deadline") String deadline,
                       @RequestParam("done") boolean done) {
-        ;
         taskService.update(taskId, client, contractor, task, deadline, done);
         return "redirect:/task";
     }
 
-    @PostMapping("/complete")
-    String completeTask(@RequestParam("taskId") String taskId) {
+    @PostMapping("/task/{taskId}/complete")
+    String completeTask(@PathVariable("taskId") String taskId) {
         TaskItem task = taskService.getTaskById(taskId);
         if (task != null && task.isDone()) {
             taskService.update(task.getTaskId(), task.getClient(), task.getContractor(), task.getTask(), task.getDeadline(), true);
@@ -80,8 +80,8 @@ public class TaskController {
         return "redirect:/task";
     }
 
-    @PostMapping("/completedTask")
-    String completedTask(@RequestParam("taskId") String taskId) {
+    @PostMapping("/task/{taskId}/completedTask")
+    String completedTask(@PathVariable("taskId") String taskId) {
         CompTaskItem task = taskService.getCompTaskById(taskId);
         if (task != null) {
             LocalDateTime completedDate = LocalDateTime.now();
@@ -91,8 +91,8 @@ public class TaskController {
         return "redirect:/task";
     }
 
-    @PostMapping("/notCompletedTask")
-    String notCompletedTask(@RequestParam("taskId") String taskId) {
+    @PostMapping("/task/{taskId}/notCompletedTask")
+    String notCompletedTask(@PathVariable("taskId") String taskId) {
         CompTaskItem task = taskService.getCompTaskById(taskId);
         if (task != null) {
             taskService.insertTask(task.getTaskId(), task.getClient(), task.getContractor(), task.getTask(), task.getDeadline(), false);

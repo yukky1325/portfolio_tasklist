@@ -23,7 +23,7 @@ public class RegisterController {
         return "register";
     }
 
-    @PostMapping("/adduser")
+    @PostMapping("/register")
     public String registerUser(@ModelAttribute RegisterUser registerUser, Model model) {
         String result = registerService.insertUser(registerUser);
         if ("success".equals(result)) {
