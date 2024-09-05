@@ -13,7 +13,7 @@
 </div>
 <div class="task_form">
     <h2>タスク登録</h2>
-    <form th:action="@{/add}" method="post">
+    <form th:action="@{/task}" method="post">
         <label>依頼主</label>
         <select name="client">
             <option th:each="user : ${username}" th:value="${username}" th:text="${username}"></option>
@@ -53,30 +53,32 @@
             <td width="50px" th:text="${task.done} ? '完了' : '未完了'"></td>
             <td width="50px">
                 <button type="button" id="update_button" onclick="
-                let row = this.parentElement.parentElement;
-                document.getElementById('update_taskId').value = row.cells[0].firstChild.data;
-                document.getElementById('update_client').value = row.cells[1].firstChild.data.trim();
-                document.getElementById('update_contractor_select').value = row.cells[2].firstChild.data.trim();
-                document.getElementById('update_task').value = row.cells[3].firstChild.data;
-                document.getElementById('update_deadline').value = row.cells[4].firstChild.data;
-                document.getElementById('update_status').selectedIndex = (row.cells[5].firstChild.data === '完了') ? 1 : 0;
-                var dialog = document.getElementById('updateDialog');
-                dialog.style.left = ((window.innerWidth - 500) / 2) + 'px';
-                dialog.style.display = 'block';
-                ">更新
+    let row = this.parentElement.parentElement;
+    let taskId = row.cells[0].textContent.trim(); 
+    document.getElementById('update_taskId').value = taskId;
+    document.getElementById('update_client').value = row.cells[1].textContent.trim();
+    document.getElementById('update_contractor_select').value = row.cells[2].textContent.trim();
+    document.getElementById('update_task').value = row.cells[3].textContent.trim();
+    document.getElementById('update_deadline').value = row.cells[4].textContent.trim();
+    document.getElementById('update_status').selectedIndex = (row.cells[5].textContent.trim() === '完了') ? 1 : 0;
+　  var dialog = document.getElementById('updateDialog');
+    dialog.style.left = ((window.innerWidth - 500) / 2) + 'px';
+    dialog.style.display = 'block';
+">更新
                 </button>
             </td>
             <td width="50px">
-                <form th:action="@{/delete}" method="post">
+                <form th:action="@{/task/{taskId}(taskId=${task.taskId})}" method="post">
                     <input type="hidden" name="_method" value="delete"/>
                     <button type="submit" id="delete_button">削除</button>
-                    <input type="hidden" name="taskId" th:value="${task.taskId}"/>
                 </form>
             </td>
             <td width="50px">
                 <div th:if="${task.done}">
-                    <form th:action="@{/complete}" method="post" style="display:inline;">
+                    <form th:action="@{/task/{taskId}/complete(taskId=${task.taskId})}" method="post"
+                          style="display:inline;">
                         <input type="hidden" name="taskId" th:value="${task.taskId}"/>
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                         <button type="submit">完了</button>
                     </form>
                 </div>
@@ -107,13 +109,13 @@
             <td width="80px" th:text="${task.deadline}"></td>
             <td th:text="${#temporals.format(task.completedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
             <td width="50px">
-                <form th:action="@{/completedTask}" method="post">
+                <form th:action="@{/task/{taskId}/completedTask(taskId=${task.taskId})}" method="post">
                     <input type="hidden" name="taskId" th:value="${task.taskId}"/>
                     <button type="submit">完了</button>
                 </form>
             </td>
             <td width="70px">
-                <form th:action="@{/notCompletedTask}" method="post">
+                <form th:action="@{/task/{taskId}/notCompletedTask(taskId=${task.taskId})}" method="post">
                     <input type="hidden" name="taskId" th:value="${task.taskId}"/>
                     <button type="submit">未完了</button>
                 </form>
@@ -125,7 +127,7 @@
 <div id="updateDialog" style="display:none;">
     <div class="task_form">
         <h2>タスクの更新</h2>
-        <form th:action="@{/update}" method="post">
+        <form th:action="@{/task/update}" method="post">
             <input type="hidden" name="_method" value="patch"/>
             <input id="update_taskId" name="taskId" type="hidden"/>
             <label>依頼主</label>

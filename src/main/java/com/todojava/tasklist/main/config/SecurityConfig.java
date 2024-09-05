@@ -25,10 +25,12 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .defaultSuccessUrl("/task", true)
         ).authorizeHttpRequests(authz -> authz
-                .requestMatchers("/login/**", "/register/**", "/result/**", "/adduser/**").permitAll()
+                .requestMatchers("/login/**", "/register/**", "/result/**").permitAll()
+                .requestMatchers("/task", "/task/**").authenticated()
                 .anyRequest().authenticated()
-        );
 
+        );
+        
         return http.build();
     }
 

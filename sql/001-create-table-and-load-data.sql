@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS active_tasklists;
 
 CREATE TABLE active_tasklists (
   task_id VARCHAR(8) NOT NULL,
-  client VARCHAR(50),
-  contractor VARCHAR(50),
+  client VARCHAR(50) NOT NULL,
+  contractor VARCHAR(50) NOT NULL,
   task VARCHAR(256) NOT NULL,
   deadline VARCHAR(10) NOT NULL,
   done BOOLEAN,
@@ -16,8 +16,8 @@ DROP TABLE IF EXISTS completed_tasklists;
 
 CREATE TABLE completed_tasklists (
   task_id VARCHAR(8) NOT NULL,
-  client VARCHAR(50),
-  contractor VARCHAR(50),
+  client VARCHAR(50) NOT NULL,
+  contractor VARCHAR(50) NOT NULL,
   task VARCHAR(256) NOT NULL,
   deadline VARCHAR(10) NOT NULL,
   completed_date TIMESTAMP,
@@ -30,8 +30,8 @@ DROP TABLE IF EXISTS record_tasklists;
 
 CREATE TABLE record_tasklists (
   task_id VARCHAR(8) NOT NULL,
-  client VARCHAR(50),
-  contractor VARCHAR(50),
+  client VARCHAR(50) NOT NULL,
+  contractor VARCHAR(50) NOT NULL,
   task VARCHAR(256) NOT NULL,
   deadline VARCHAR(10) NOT NULL,
   completed_date TIMESTAMP,
@@ -43,7 +43,7 @@ INSERT INTO record_tasklists(task_id,client,contractor,task,deadline,completed_d
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
-  user_id INT AUTO_INCREMENT,
+  user_id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(50) NOT NULL,
   password VARCHAR(500) NOT NULL,
   email VARCHAR(100) NOT NULL,
