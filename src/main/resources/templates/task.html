@@ -14,11 +14,11 @@
 <div class="task_form">
     <h2>タスク登録</h2>
     <form th:action="@{/task}" method="post">
-        <label>依頼主</label>
+        <label>頼む人</label>
         <select name="client">
             <option th:each="user : ${username}" th:value="${username}" th:text="${username}"></option>
         </select>
-        <label>請負人</label>
+        <label>頼まれた人</label>
         <select name="contractor">
             <option th:each="user : ${usernames}" th:value="${user}" th:text="${user}"></option>
         </select>
@@ -36,8 +36,8 @@
         <thead>
         <tr>
             <th class="hidden">ID</th>
-            <th width="50px">依頼主</th>
-            <th width="50px">請負人</th>
+            <th width="50px">頼む人</th>
+            <th width="50px">頼まれた人</th>
             <th>タスク</th>
             <th width="100px">期限</th>
             <th width="100px">状態</th>
@@ -93,8 +93,8 @@
         <thead>
         <tr>
             <th class="hidden">ID</th>
-            <th width="50px">依頼主</th>
-            <th width="50px">請負人</th>
+            <th width="50px">頼む人</th>
+            <th width="50px">頼まれた人</th>
             <th>タスク</th>
             <th width="100px">期限</th>
             <th width="150px">完了日時</th>
@@ -130,11 +130,11 @@
         <form th:action="@{/task/update}" method="post">
             <input type="hidden" name="_method" value="patch"/>
             <input id="update_taskId" name="taskId" type="hidden"/>
-            <label>依頼主</label>
+            <label>頼む人</label>
             <select id="update_client" name="client">
                 <option th:each="user : ${username}" th:value="${username}" th:text="${username}"></option>
             </select>
-            <label>請負人</label>
+            <label>頼まれた人</label>人</label>
             <select id="update_contractor_select" name="contractor">
                 <option th:each="user : ${usernames}" th:value="${user}" th:text="${user}"></option>
             </select>
