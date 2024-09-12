@@ -8,6 +8,13 @@
 ## 作成背景
 　家族間で頼んだ事や頼まれた事を口頭にて行っていたが、他の作業しており忘れてしまう事が何度か発生したので今回新しいアプリを作成しようと思いました。
 
+## 工夫した点
+- SpringSequrityを導入しログイン機能および新規ユーザー登録をすることで指定したユーザー以外ログイン出来ない様にした。
+
+- 当初タスクの欄は現行のタスク一覧の１行だけ出会ったが、完了した際に本当に作業が完了したが、頼んだ人がもう一度チェックするように作業完了タスク一覧を作成した。
+  こうすることにより出来ていなかったら現行タスクに戻す事ができる様になった。
+  また、ユーザー情報の中にタスクの履歴を入れることにより、今まで完了したタスクを残し見返せるようにした。   
+
 ## 主な使用技術
 ### バックエンド
 - #### Java (Spring Boot):
@@ -87,55 +94,39 @@ https://github.com/user-attachments/assets/c52c8800-77af-421c-8b4e-7cade2c7524d
 
 ![tasklist](https://github.com/user-attachments/assets/632ecd2c-c4f0-4246-8fd7-742bd598bf27)
 
-API仕様書
-[SwaggerによるAPI仕様書](
+### API仕様書
+[SwaggerによるAPI仕様書](https://yukky1325.github.io/portfolio_tasklist/dist/index.html)
 
 
 
-ローカルでのアプリケーション起動方法
-Git, Java, Node.Js, Dockerをインストールする。
+## ローカルでのアプリケーション起動方法
+- Git, Java, Dockerをインストールする。
 
-リポジトリをgit cloneする。
-git clone https://github.com/rinna-kawaguchi/Equipment-Management-API.git
+- リポジトリをgit cloneする。
+`git clone ttps://github.com/yukky1325/yukky1325-portfolio_tasklist.git` 
 
-クローンしたディレクトリに移動する。
+- クローンしたディレクトリに移動する。
+`cd yukky1325-portfolio_tasklist`
 
-Dockerを起動する。
-docker compose up
+- Dockerを起動する。
+`docker compose up -d`
 
-Spring Bootを起動する。
+- Spring Bootを起動する。
 ./gradlew bootRun
 
-frontendディレクトリに移動する。
-cd frontend/
-
-依存関係をインストールし、Reactのアプリケーションを起動する。
-npm install
-npm start
-（yarnがインストールされている場合は下記コマンドでも可）
-yarn
-yarn start
-
-自動テスト
-以下のテストコードを実装。
-
-単体テスト
-EquipmentServiceImpl, PlanServiceImpl, HistoryServiceImpl
-EquipmentMapper, PlanMapper, HistoryMapper
-結合テスト
-EquipmentController, PlanController, HistoryController
-自動テストの実行結果
+## 作成スケジュール
+### 計画
+当初の計画は2024年2月から学習を開始し7月まで学習を進めた。    
+ある程度目処が立ったのでportfolioを制作がてらアプリの制作を開始した。  
+7月から8月までの１ヶ月で制作する予定でした。  
+### 実績
+当初の計画通り１ヶ月で完了予定である程度のアプリを制作したが、制作するにつれてSpringSequrityを導入したログイン機能の追加や
+タスクの欄の追加やユーザー情報の追加を行なっていくうちに２ヶ月程度制作時間がかかった。
 
 
-作成スケジュール
-当初の計画
 
-
-実績
-
-
-進捗状況の振り返り
-当初２週間程度で作成する予定でしたが、結果的には１ヶ月程度かかってしまいました。
+## 進捗状況の振り返り
+1ヶ月程度を想定していたが、制作するに
 
 反省点
 
@@ -149,38 +140,4 @@ Spring Securityの導入
 CDの導入
 フロント側の自動テスト
 フロント側のさまざまなスタイル調整
-About
-project for portfolio
 
-Resources
- Readme
- Activity
-Stars
- 0 stars
-Watchers
- 1 watching
-Forks
- 0 forks
-Report repository
-Releases
-No releases published
-Packages
-No packages published
-Deployments
-56
- github-pages last year
-+ 55 deployments
-Languages
-Java
-67.9%
- 
-TypeScript
-31.1%
- 
-Other
-1.0%
-Footer
-© 2024 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
